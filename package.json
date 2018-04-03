@@ -2,7 +2,7 @@
   "name": "mtgautoinventory",
   "version": "1.0.0",
   "description": "Automatically manage mtg inventory across Deckbox, TCGPlayer, Cardsphere, and more.",
-  "main": "test_add_card_deckbox.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
