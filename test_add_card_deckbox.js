@@ -40,7 +40,6 @@ async function login(page) {
   await page.$eval('#password', el => el.value = 'TestPass1');
   await page.screenshot({path: 'deckbox_login_form.png'});
   await page.click('#submit_button');
-  await page.waitForNavigation(0);
   await add(page);
 }
 
@@ -48,22 +47,27 @@ async function add(page) {
   console.log('navigating to home page');
   await page.screenshot({path: 'deckbox_home.png'});
   console.log('navigating to inventory page');
+  await page.waitForSelector('#section_mtg > li:nth-child(1) > a');
   await page.click('#section_mtg > li:nth-child(1) > a');
-  await page.waitForNavigation(0);
+  await page.waitForSelector('#tab_import_list > a');
   await page.screenshot({path: 'deckbox_inventory.png'});
+  await page.click('#tab_import_list > a');
+  await page.waitForNavigation({timeout:0});
+  await page.$eval('#new_card_list_txt_advanced', el => el.value = 'llanowar elves');
+  await page.screenshot({path: 'deckbox_inventory_elf_typed.png'});
   // console.log('attempting to adjust card settings');
+  // await page.waitForSelector('#_button_default_edition_single');
   // await page.click('#_button_default_edition_single');
-  // await page.waitForNavigation(0);
+  // await page.waitForSelector('body > div:nth-child(23) > div > ul > li:nth-child(1) > div > input[type="text"]'),
   // await page.$eval('body > div:nth-child(23) > div > ul > li:nth-child(1) > div > input[type="text"]', el => el.value = 'alpha');
-  // await page.click('#tab_import_list > a');
-  // await page.waitForNavigation(0);
-  // await page.$eval('#new_card_list_txt_advanced', el => el.value = 'llanowar elves');
-  // await page.screenshot({path: 'deckbox_elf_pre_add.png'});
-  // console.log('attempting to add card');
-  // await page.click('#submit_add_list');
-  // await page.waitForNavigation(0);
-  // await page.screenshot({path: 'deckbox_elf_added.png'});
-  // console.log('added card');
+  // // await page.click('#tab_import_list > a').then(() => page.waitForNavigation({waitUntil: 'load'}));
+  // // await page.$eval('#new_card_list_txt_advanced', el => el.value = 'llanowar elves');
+  // // await page.screenshot({path: 'deckbox_elf_pre_add.png'});
+  // // console.log('attempting to add card');
+  // // await page.click('#submit_add_list');
+  // // await page.waitForNavigation(0);
+  // // await page.screenshot({path: 'deckbox_elf_added.png'});
+  // // console.log('added card');
 }
 
 
